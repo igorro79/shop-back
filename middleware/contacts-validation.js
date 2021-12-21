@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const validationSchema = Joi.object({
+const validationContact = Joi.object({
   username: Joi.string().alphanum().min(3).max(30).required(),
   email: Joi.string()
     .required()
@@ -12,8 +12,14 @@ const validationSchema = Joi.object({
     .length(10)
     .pattern(/^[0-9]+$/)
     .required(),
+  favorite: Joi.boolean().optional(),
+});
+
+const validationFavorite = Joi.object({
+  favorite: Joi.boolean().required(),
 });
 
 module.exports = {
-  validationSchema,
+  validationContact,
+  validationFavorite,
 };
