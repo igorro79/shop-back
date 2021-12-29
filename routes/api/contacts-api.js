@@ -6,6 +6,8 @@ const {
   patchFavoriteValidationJoi,
 } = require('../../middleware/contacts-validation');
 
+const { authMiddleware } = require('../../middleware/authMiddleware');
+
 const {
   getContactsController,
   getContactByIdController,
@@ -14,6 +16,8 @@ const {
   updateStatusContactController,
   removeContactController,
 } = require('../../controllers/contactsController');
+
+router.use(authMiddleware);
 
 router.get('/', asyncWrapper(getContactsController));
 router.post('/', contactValidationJoi, asyncWrapper(addContactController));

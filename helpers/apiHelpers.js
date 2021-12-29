@@ -1,4 +1,4 @@
-const { WrongParametersError, ValidationError } = require('../helpers/errors');
+const { BaseError } = require('../helpers/errors');
 
 const asyncWrapper = (controller) => {
   return (req, res, next) => {
@@ -7,10 +7,10 @@ const asyncWrapper = (controller) => {
 };
 
 const errorHandler = (error, req, res, next) => {
-  if (
-    error instanceof WrongParametersError ||
-    error instanceof ValidationError
-  ) {
+  if (error.message.includes('Cast to ObjectId failed')) {
+    return res.status(404).json({ message: error.message });
+  }
+  if (error instanceof BaseError) {
     return res.status(error.status).json({ message: error.message });
   }
 
