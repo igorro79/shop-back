@@ -4,9 +4,8 @@ const { asyncWrapper } = require('../../helpers/apiHelpers');
 const {
   contactValidationJoi,
   patchFavoriteValidationJoi,
-} = require('../../middleware/contacts-validation');
-
-const { authMiddleware } = require('../../middleware/authMiddleware');
+  authMiddleware,
+} = require('../../middleware');
 
 const {
   getContactsController,
