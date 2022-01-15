@@ -3,15 +3,16 @@ const { AuthError, Conflict } = require('../helpers/errors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const register = async (email, password) => {
+const register = async (email, password, avatarURL) => {
   if (await Users.findOne({ email })) {
     throw new Conflict('User already exist!');
   }
-  const user = new Users({
+  const user = await Users.create({
     email,
     password,
+    avatarURL,
   });
-  await user.save();
+
   const { subscription } = user;
   return {
     email,
@@ -51,6 +52,13 @@ const subscription = async (user, { subscription: newSubscription }) => {
     { subscription: newSubscription }
   );
 };
+const userAvatar = async (req, res) => {
+  const { _id: userId } = req.user;
+
+  await Users.findOneAndUpdate({ _id: userId }, { avatarURL: req.avatarURL });
+  const result = await Users.findOne({ _id: userId }, 'avatarURL');
+  return result;
+};
 
 module.exports = {
   register,
@@ -58,4 +66,5 @@ module.exports = {
   logout,
   current,
   subscription,
+  userAvatar,
 };
