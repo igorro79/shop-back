@@ -4,7 +4,6 @@ const { NotFound } = require('../helpers/errors');
 const getContacts = async (owner, page, limit, favorite) => {
   const skipValue = (page - 1) * 20;
   const favoriteFilter = favorite ? { $eq: favorite } : { $nin: null };
-  console.log(page);
   return await Contacts.find({ owner, favorite: { ...favoriteFilter } })
     .skip(skipValue)
     .limit(20);

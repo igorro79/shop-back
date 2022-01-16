@@ -1,6 +1,8 @@
 const fs = require('fs').promises;
 const {
   register,
+  registerConfirmation,
+  registerConfirmationAgain,
   login,
   logout,
   current,
@@ -14,7 +16,16 @@ const userSignupController = async (req, res) => {
   const { email, password } = req.body;
   const avatarURL = gravatar.url(email, { protocol: 'http', s: '100' });
   const user = await register(email, password, avatarURL);
-  res.status(200).json({ user });
+  res.status(200).json({ message: 'Successful' });
+};
+const userSignupConfirmationController = async (req, res) => {
+  const { verificationToken } = req.params;
+  const user = await registerConfirmation(verificationToken);
+  res.status(200).json({ message: 'Verification successful' });
+};
+const userSignupConfirmationAgainController = async (req, res) => {
+  const user = await registerConfirmationAgain(req.body);
+  res.status(200).json({ message: 'Verification email sent' });
 };
 
 const userLoginController = async (req, res) => {
@@ -44,6 +55,8 @@ const userAvatarController = async (req, res) => {
 };
 module.exports = {
   userSignupController,
+  userSignupConfirmationController,
+  userSignupConfirmationAgainController,
   userLoginController,
   userLogoutController,
   userCurrentController,
