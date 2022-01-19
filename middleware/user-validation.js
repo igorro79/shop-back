@@ -29,7 +29,23 @@ const userSubscriptionValidationJoi = (req, res, next) => {
   }
   next();
 };
+const userSignupConfirmationAgainJoi = (req, res, next) => {
+  const schema = Joi.object({
+    email: Joi.string()
+      .required()
+      .email({
+        minDomainSegments: 2,
+        tlds: { allow: ['com', 'net'] },
+      }),
+  });
+  const validate = schema.validate(req.body);
+  if (validate.error) {
+    next(new ValidationError(validate.error));
+  }
+  next();
+};
 module.exports = {
   userValidationJoi,
   userSubscriptionValidationJoi,
+  userSignupConfirmationAgainJoi,
 };

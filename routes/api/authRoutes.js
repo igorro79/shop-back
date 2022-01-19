@@ -5,6 +5,7 @@ const { asyncWrapper } = require('../../helpers/apiHelpers');
 const {
   userValidationJoi,
   userSubscriptionValidationJoi,
+  userSignupConfirmationAgainJoi,
   authMiddleware,
   avatarUpdateMiddleware,
   avatarNormalize,
@@ -12,6 +13,8 @@ const {
 
 const {
   userSignupController,
+  userSignupConfirmationController,
+  userSignupConfirmationAgainController,
   userLoginController,
   userLogoutController,
   userCurrentController,
@@ -20,6 +23,16 @@ const {
 } = require('../../controllers/authController');
 
 router.post('/signup', userValidationJoi, asyncWrapper(userSignupController));
+router.get(
+  '/verify/:verificationToken',
+  asyncWrapper(userSignupConfirmationController)
+);
+router.post(
+  '/verify',
+  userSignupConfirmationAgainJoi,
+  asyncWrapper(userSignupConfirmationAgainController)
+);
+
 router.post('/login', userValidationJoi, asyncWrapper(userLoginController));
 router.get('/current', authMiddleware, asyncWrapper(userCurrentController));
 router.post('/logout', authMiddleware, asyncWrapper(userLogoutController));

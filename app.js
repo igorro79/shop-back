@@ -19,7 +19,7 @@ app.use('/avatars', express.static('public/avatars'));
 
 app.use('/api/contacts', contactsRouter);
 app.use('/users', usersRouter);
-console.log(__dirname);
+
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
 });

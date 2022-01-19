@@ -8,6 +8,7 @@ const { authMiddleware } = require('./authMiddleware');
 const {
   userValidationJoi,
   userSubscriptionValidationJoi,
+  userSignupConfirmationAgainJoi,
 } = require('./user-validation');
 
 const { avatarUpdateMiddleware } = require('./avatar-udate-middleware');
@@ -18,6 +19,7 @@ module.exports = {
   patchFavoriteValidationJoi,
   userValidationJoi,
   userSubscriptionValidationJoi,
+  userSignupConfirmationAgainJoi,
   authMiddleware,
   avatarUpdateMiddleware,
   avatarNormalize,
