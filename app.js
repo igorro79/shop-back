@@ -15,8 +15,6 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-// app.use('/avatars', express.static('public/avatars'));
-
 app.use("/api/shops", shopsRouter);
 app.use("/api/carts", cartsRouter);
 

@@ -1,16 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const items = new Schema({
-  name: String,
-  price: Number,
-  quantity: Number,
-});
-
-const order = new Schema({
-  shop: String,
-  sum: Number,
-  items: [items],
+const product = new Schema({
+  name: { type: String },
+  price: { type: String },
+  quantity: { type: String },
 });
 
 const carts = new Schema(
@@ -19,20 +13,10 @@ const carts = new Schema(
     email: String,
     phone: String,
     address: String,
-    date: String,
-    order: [
-      {
-        shop: String,
-        sum: Number,
-        items: [
-          {
-            name: String,
-            price: Number,
-            quantity: Number,
-          },
-        ],
-      },
-    ],
+    sum: Number,
+    shop: String,
+    // TODO for history
+    order: [product],
   },
   {
     versionKey: false,
