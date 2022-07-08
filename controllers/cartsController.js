@@ -1,8 +1,4 @@
-const {
-    getAllCarts,
-  addCart,
-} = require("../services/carts-service");
-
+const { getAllCarts, addCart } = require("../services/carts-service");
 
 const getAllOrdersController = async (req, res) => {
   const cart = await getAllCarts();
@@ -15,7 +11,6 @@ const addOrderController = async (req, res) => {
 };
 
 module.exports = {
-  getLastOrderController,
   getAllOrdersController,
   addOrderController,
 };
